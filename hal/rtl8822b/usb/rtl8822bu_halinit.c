@@ -325,7 +325,8 @@ u32 rtl8822bu_inirp_deinit(PADAPTER padapter)
 	return _SUCCESS;
 }
 
-void rtl8822bu_update_interrupt_mask(PADAPTER padapter, u8 bHIMR0 , u32 AddMSR, u32 RemoveMSR)
+static __maybe_unused void rtl8822bu_update_interrupt_mask(PADAPTER padapter,
+	u8 bHIMR0, u32 AddMSR, u32 RemoveMSR)
 {
 	HAL_DATA_TYPE *pHalData;
 	u32 *himr;

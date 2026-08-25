@@ -97,6 +97,7 @@ struct txpwrtrack_cfg {
 };
 
 void configure_txpower_track(void *dm_void, struct txpwrtrack_cfg *config);
+void odm_iq_calibrate(struct dm_struct *dm);
 
 void odm_clear_txpowertracking_state(void *dm_void);
 

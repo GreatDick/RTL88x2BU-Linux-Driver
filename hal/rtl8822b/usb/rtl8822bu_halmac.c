@@ -15,6 +15,7 @@
 #define _RTL8822BU_HALMAC_C_
 
 #include <drv_types.h>		/* struct dvobj_priv and etc. */
+#include "rtl8822bu.h"
 #include "../../hal_halmac.h"
 #include "../rtl8822b.h"	/* rtl8822b_cal_txdesc_chksum() and etc. */
 

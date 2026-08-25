@@ -61,6 +61,8 @@
 		#define NR_XMITBUFF	(4)
 	#endif /* CONFIG_SINGLE_XMIT_BUF */
 #elif defined (CONFIG_PCI_HCI)
+extern struct xmit_frame *rtw_get_xframe(struct xmit_priv *pxmitpriv, int *num_frame);
+
 #ifdef CONFIG_TX_AMSDU
 	#define MAX_XMITBUF_SZ	(3500)
 #else
@@ -1015,6 +1017,8 @@ sint	check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
 thread_return	rtw_xmit_thread(thread_context context);
 #endif
 
+struct xmit_frame *rtw_get_xframe(struct xmit_priv *pxmitpriv, int *num_frame);
+
 #ifdef CONFIG_TX_AMSDU
 extern void rtw_amsdu_vo_timeout_handler(void *FunctionContext);
 extern void rtw_amsdu_vi_timeout_handler(void *FunctionContext);
@@ -1029,7 +1033,6 @@ extern void rtw_amsdu_cancel_timer(_adapter *padapter, u8 priority);
 extern s32 rtw_xmitframe_coalesce_amsdu(_adapter *padapter, struct xmit_frame *pxmitframe, struct xmit_frame *pxmitframe_queue);	
 extern s32 check_amsdu(struct xmit_frame *pxmitframe);
 extern s32 check_amsdu_tx_support(_adapter *padapter);
-extern struct xmit_frame *rtw_get_xframe(struct xmit_priv *pxmitpriv, int *num_frame);
 #endif
 
 #ifdef DBG_TXBD_DESC_DUMP

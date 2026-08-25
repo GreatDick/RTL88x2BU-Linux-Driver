@@ -227,7 +227,7 @@ u32 rtl8822b_get_rx_desc_size(struct _ADAPTER *a)
  *
  * Rteurn counter when reset==0, otherwise always return 0.
  */
-u16 _rx_report(struct _ADAPTER *a, enum rx_rpt_type type, u8 reset)
+static u16 _rx_report(struct _ADAPTER *a, enum rx_rpt_type type, u8 reset)
 {
 	u32 sel = 0;
 	u16 counter = 0;

@@ -48,6 +48,7 @@ void do_iqk_8822b(void *dm_void, u8 delta_thermal_index, u8 thermal_value,
 #endif
 
 void phy_iq_calibrate_8822b(void *dm_void, boolean clear, boolean segment_iqk);
+void _iq_calibrate_8822b_init(struct dm_struct *dm);
 
 void do_imr_test_8822b(void *dm_void);
 

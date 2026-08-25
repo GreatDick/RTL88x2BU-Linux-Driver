@@ -69,7 +69,7 @@ void halrf_rf_lna_setting_8822b(struct dm_struct *dm_void,
 		}
 }
 
-boolean get_mix_mode_tx_agc_bb_swing_offset_8822b(void *dm_void,
+static boolean get_mix_mode_tx_agc_bb_swing_offset_8822b(void *dm_void,
 						  enum pwrtrack_method method,
 						  u8 rf_path,
 						  u8 tx_power_index_offset)
@@ -134,7 +134,7 @@ boolean get_mix_mode_tx_agc_bb_swing_offset_8822b(void *dm_void,
 	return true;
 }
 
-void odm_pwrtrack_method_set_pwr8822b(void *dm_void,
+static void odm_pwrtrack_method_set_pwr8822b(void *dm_void,
 				      enum pwrtrack_method method,
 				      u8 rf_path, u8 tx_pwr_idx_offset)
 {
@@ -438,7 +438,7 @@ void aac_check_8822b(struct dm_struct *dm)
 	}
 }
 
-void _phy_lc_calibrate_8822b(struct dm_struct *dm)
+static void _phy_lc_calibrate_8822b(struct dm_struct *dm)
 {
 	u32 lc_cal = 0, cnt = 0, tmp0xc00, tmp0xe00;
 
@@ -555,7 +555,7 @@ void phy_set_rf_path_switch_8822b(void *adapter, boolean is_main)
 }
 
 #if ((DM_ODM_SUPPORT_TYPE & ODM_AP) || (DM_ODM_SUPPORT_TYPE == ODM_CE))
-boolean _phy_query_rf_path_switch_8822b(struct dm_struct *dm)
+static boolean _phy_query_rf_path_switch_8822b(struct dm_struct *dm)
 #else
 boolean _phy_query_rf_path_switch_8822b(void *adapter)
 #endif
@@ -573,7 +573,7 @@ boolean _phy_query_rf_path_switch_8822b(void *adapter)
 }
 
 #if ((DM_ODM_SUPPORT_TYPE & ODM_AP) || (DM_ODM_SUPPORT_TYPE == ODM_CE))
-boolean phy_query_rf_path_switch_8822b(struct dm_struct *dm)
+static __maybe_unused boolean phy_query_rf_path_switch_8822b(struct dm_struct *dm)
 #else
 boolean phy_query_rf_path_switch_8822b(void *adapter)
 #endif

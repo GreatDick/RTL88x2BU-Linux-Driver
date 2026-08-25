@@ -935,7 +935,7 @@ odm_txpowertracking_init(
 }
 
 
-u8
+static u8
 get_swing_index(
 	void		*dm_void
 )
@@ -987,7 +987,7 @@ get_swing_index(
 	return i;
 }
 
-s8
+static s8
 get_txagc_default_index(
 	void *dm_void
 )

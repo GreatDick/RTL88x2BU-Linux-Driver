@@ -53,7 +53,7 @@ u32 cca_ifem_ccut_rfe[3][4] = {
 };
 
 __iram_odm_func__
-void phydm_igi_toggle_8822b(struct dm_struct *dm)
+static void phydm_igi_toggle_8822b(struct dm_struct *dm)
 {
 	u32 igi = 0x20;
 
@@ -65,7 +65,7 @@ void phydm_igi_toggle_8822b(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_8822b_type18_rfe(struct dm_struct *dm, u8 channel)
+static void phydm_8822b_type18_rfe(struct dm_struct *dm, u8 channel)
 {
 	if (channel <= 14) {
 		/* signal source */
@@ -152,7 +152,7 @@ void phydm_8822b_type18_rfe(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_8822b_type15_rfe(struct dm_struct *dm, u8 channel)
+static void phydm_8822b_type15_rfe(struct dm_struct *dm, u8 channel)
 {
 	if (channel <= 14) {
 		/* signal source */
@@ -208,7 +208,7 @@ void phydm_8822b_type15_rfe(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-u32 phydm_check_bit_mask(u32 bit_mask, u32 data_original, u32 data)
+static u32 phydm_check_bit_mask(u32 bit_mask, u32 data_original, u32 data)
 {
 	u8 bit_shift;
 
@@ -224,7 +224,7 @@ u32 phydm_check_bit_mask(u32 bit_mask, u32 data_original, u32 data)
 }
 
 __iram_odm_func__
-void phydm_rfe_8822b_setting(struct dm_struct *dm, u8 rfe_n, u8 mux_sel,
+static __maybe_unused void phydm_rfe_8822b_setting(struct dm_struct *dm, u8 rfe_n, u8 mux_sel,
 			     u8 inv_en, u8 source_sel)
 {
 	PHYDM_DBG(dm, ODM_PHY_CONFIG, "%s ======>\n", __func__);
@@ -280,7 +280,7 @@ void phydm_rfe_8822b_init(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_rfe_4_11(struct dm_struct *dm, u8 channel)
+static void phydm_rfe_4_11(struct dm_struct *dm, u8 channel)
 {
 	boolean is_channel_2g = (channel <= 14) ? true : false;
 
@@ -355,7 +355,7 @@ void phydm_rfe_4_11(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_rfe_efem(struct dm_struct *dm, u8 channel)
+static void phydm_rfe_efem(struct dm_struct *dm, u8 channel)
 {
 	boolean is_channel_2g = (channel <= 14) ? true : false;
 	u8 rfe_type = dm->rfe_type;
@@ -434,7 +434,7 @@ void phydm_rfe_efem(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_rfe_ifem(struct dm_struct *dm, u8 channel)
+static void phydm_rfe_ifem(struct dm_struct *dm, u8 channel)
 {
 	boolean is_channel_2g = (channel <= 14) ? true : false;
 
@@ -481,7 +481,7 @@ void phydm_rfe_ifem(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_rfe_2t3r(struct dm_struct *dm, u8 channel)
+static __maybe_unused void phydm_rfe_2t3r(struct dm_struct *dm, u8 channel)
 {
 #if 0
 	/* @[MAC] */
@@ -514,7 +514,7 @@ void phydm_rfe_2t3r(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_rfe_2t4r(struct dm_struct *dm, u8 channel)
+static __maybe_unused void phydm_rfe_2t4r(struct dm_struct *dm, u8 channel)
 {
 	odm_set_mac_reg(dm, R_0x40, BIT(2), 1);
 	odm_set_bb_reg(dm, R_0x970, BIT(5), 1); /* RFE_buffer */
@@ -532,7 +532,7 @@ void phydm_rfe_2t4r(struct dm_struct *dm, u8 channel)
 }
 
 __iram_odm_func__
-void phydm_rfe_smtant(struct dm_struct *dm, u8 channel)
+static __maybe_unused void phydm_rfe_smtant(struct dm_struct *dm, u8 channel)
 {
 	boolean is_channel_2g = (channel <= 14) ? true : false;
 
@@ -748,7 +748,7 @@ phydm_rfe_8822b_lps(struct dm_struct *dm, boolean enable_sw_rfe)
 }
 
 __iram_odm_func__
-u8 phydm_is_dfs_channel(u8 channel_num)
+static __maybe_unused u8 phydm_is_dfs_channel(u8 channel_num)
 {
 	if (channel_num >= 52 && channel_num <= 140)
 		return 1;
@@ -757,7 +757,7 @@ u8 phydm_is_dfs_channel(u8 channel_num)
 }
 
 __iram_odm_func__
-void phydm_ccapar_by_rfe_8822b(struct dm_struct *dm)
+static void phydm_ccapar_by_rfe_8822b(struct dm_struct *dm)
 {
 	u32 cca_ifem[3][4], cca_efem[3][4];
 	u8 col;
@@ -841,7 +841,7 @@ void phydm_ccapar_by_rfe_8822b(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_rxdfirpar_by_bw_8822b(struct dm_struct *dm,
+static void phydm_rxdfirpar_by_bw_8822b(struct dm_struct *dm,
 				 enum channel_width bandwidth)
 {
 	if (bandwidth == CHANNEL_WIDTH_40) {
@@ -1111,7 +1111,7 @@ u8 config_phydm_read_txagc_8822b(struct dm_struct *dm,
 }
 
 __iram_odm_func__
-void phydm_dsde_init(struct dm_struct *dm)
+static void phydm_dsde_init(struct dm_struct *dm)
 {
 	/* Reset NBI/CSI everytime after changing channel/BW/band  */
 	odm_set_bb_reg(dm, R_0x880, MASKDWORD, 0);
@@ -1126,7 +1126,7 @@ void phydm_dsde_init(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-u8 phydm_dsde_ch_idx(struct dm_struct *dm)
+static u8 phydm_dsde_ch_idx(struct dm_struct *dm)
 {
 	u8 idx = 0;
 
@@ -1186,7 +1186,7 @@ u8 phydm_dsde_ch_idx(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_dsde_nbi(struct dm_struct *dm)
+static void phydm_dsde_nbi(struct dm_struct *dm)
 {
 #if (PHYDM_FW_API_FUNC_ENABLE_8822B)
 	u8 set_nbi = PHYDM_SET_NO_NEED;
@@ -1274,7 +1274,7 @@ void phydm_dsde_nbi(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_dsde_csi(struct dm_struct *dm)
+static void phydm_dsde_csi(struct dm_struct *dm)
 {
 #if (PHYDM_FW_API_FUNC_ENABLE_8822B)
 	u8 set_result_csi = PHYDM_SET_NO_NEED;
@@ -1536,7 +1536,7 @@ void phydm_dynamic_spur_det_eliminate(struct dm_struct *dm)
 }
 
 __iram_odm_func__
-void phydm_spur_calibration_8822b(struct dm_struct *dm)
+static void phydm_spur_calibration_8822b(struct dm_struct *dm)
 {
 #ifdef CONFIG_8822B_SPUR_CALIBRATION
 	if (*dm->is_scan_in_process)
@@ -2308,7 +2308,7 @@ config_phydm_switch_channel_bw_8822b(struct dm_struct *dm,
 }
 
 __odm_func__
-void
+static void
 phydm_config_cck_tx_path_8822b(struct dm_struct *dm, enum bb_path tx_path)
 {
 	if (tx_path == BB_PATH_A)
@@ -2320,7 +2320,7 @@ phydm_config_cck_tx_path_8822b(struct dm_struct *dm, enum bb_path tx_path)
 }
 
 __odm_func__
-void
+static void
 phydm_config_ofdm_tx_path_8822b(struct dm_struct *dm, enum bb_path tx_path_en,
 				enum bb_path tx_path_sel_1ss)
 {
@@ -2409,7 +2409,7 @@ void phydm_config_tx_path_8822b(struct dm_struct *dm, enum bb_path tx_path,
 }
 
 __iram_odm_func__
-void phydm_config_rx_path_8822b(struct dm_struct *dm, enum bb_path rx_path)
+static void phydm_config_rx_path_8822b(struct dm_struct *dm, enum bb_path rx_path)
 {
 	dm->rx_ant_status = (u8)rx_path;
 

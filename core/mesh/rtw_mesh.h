@@ -534,4 +534,3 @@ void dump_mesh_stats(void *sel, _adapter *adapter);
 #include "rtw_mesh_pathtbl.h"
 #include "rtw_mesh_hwmp.h"
 #endif /* __RTW_MESH_H_ */
-

@@ -429,7 +429,7 @@ void phydm_soml_debug(void *dm_void, char input[][16], u32 *_used,
 	*_out_len = out_len;
 }
 
-void phydm_soml_stats_ht_on(void *dm_void)
+static void phydm_soml_stats_ht_on(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -449,7 +449,7 @@ void phydm_soml_stats_ht_on(void *dm_void)
 	}
 }
 
-void phydm_soml_stats_ht_off(void *dm_void)
+static void phydm_soml_stats_ht_off(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -469,7 +469,7 @@ void phydm_soml_stats_ht_off(void *dm_void)
 	}
 }
 
-void phydm_soml_stats_vht_on(void *dm_void)
+static void phydm_soml_stats_vht_on(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -489,7 +489,7 @@ void phydm_soml_stats_vht_on(void *dm_void)
 	}
 }
 
-void phydm_soml_stats_vht_off(void *dm_void)
+static void phydm_soml_stats_vht_off(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -527,7 +527,7 @@ void phydm_soml_statistics(void *dm_void, u8 on_off_state)
 	}
 }
 
-void phydm_adsl_init_state(void *dm_void)
+static void phydm_adsl_init_state(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -571,7 +571,7 @@ void phydm_adsl_init_state(void *dm_void)
 		      soml_tab->soml_delay_time); /*@ms*/
 }
 
-void phydm_adsl_odd_state(void *dm_void)
+static void phydm_adsl_odd_state(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -605,7 +605,7 @@ void phydm_adsl_odd_state(void *dm_void)
 		      soml_tab->soml_intvl); /*@ms*/
 }
 
-void phydm_adsl_even_state(void *dm_void)
+static void phydm_adsl_even_state(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;
@@ -632,7 +632,7 @@ void phydm_adsl_even_state(void *dm_void)
 		      soml_tab->soml_delay_time); /*@ms*/
 }
 
-void phydm_adsl_decision_state(void *dm_void)
+static void phydm_adsl_decision_state(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct adaptive_soml *soml_tab = &dm->dm_soml_table;

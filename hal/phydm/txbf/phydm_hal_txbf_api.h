@@ -74,7 +74,6 @@ struct phydm_bf_rate_info_jgr3 {
 
 /*this function is only used for BFer*/
 void phydm_txbf_rfmode(void *dm_void, u8 su_bfee_cnt, u8 mu_bfee_cnt);
-void phydm_txbf_avoid_hang(void *dm_void);
 void phydm_mu_rsoml_init(void *dm_void);
 void phydm_mu_rsoml_decision(void *dm_void);
 
@@ -83,6 +82,7 @@ void phydm_txbf_80p80_rfmode(void *dm_void, u8 su_bfee_cnt, u8 mu_bfee_cnt);
 #endif
 
 #endif /*#PHYDM_IC_JGR3_SERIES_SUPPORT*/
+void phydm_txbf_avoid_hang(void *dm_void);
 void phydm_bf_debug(void *dm_void, char input[][16], u32 *_used, char *output,
 		    u32 *_out_len);
 #endif

@@ -17,6 +17,7 @@
 #include <drv_types.h>		/* PADAPTER */
 #include <hal_data.h>		/* PHAL_DATA_TYPE */
 #include <hal_com_led.h>	/* PLED_USB */
+#include "rtl8822bu.h"
 #include "../../hal_halmac.h" /* HALMAC API */
 #ifdef CONFIG_RTW_SW_LED
 

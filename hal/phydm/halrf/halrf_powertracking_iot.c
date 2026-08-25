@@ -779,7 +779,7 @@ odm_txpowertracking_init(
 	odm_txpowertracking_thermal_meter_init(dm);
 }
 
-u8
+static u8
 get_swing_index(
 	void	*dm_void
 )
@@ -819,7 +819,7 @@ get_swing_index(
 	return i;
 }
 
-u8
+static u8
 get_cck_swing_index(
 	void		*dm_void
 )
@@ -865,7 +865,7 @@ get_cck_swing_index(
 	return i;
 }
 
-s8
+static s8
 get_txagc_default_index(
 	void *dm_void
 )

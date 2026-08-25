@@ -253,6 +253,7 @@ void phydm_h2C_debug(void *dm_void, char input[][16], u32 *_used,
 
 void phydm_ra_debug(void *dm_void, char input[][16], u32 *_used, char *output,
 		    u32 *_out_len);
+void phydm_fw_fix_rate(void *dm_void, u8 en, u8 macid, u8 bw, u8 rate);
 
 void phydm_ra_mask_report_h2c_trigger(void *dm_void,
 				      struct ra_mask_rpt_trig *trig_rpt);

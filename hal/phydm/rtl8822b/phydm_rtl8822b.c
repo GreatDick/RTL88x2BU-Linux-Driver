@@ -26,7 +26,7 @@
 #include "../phydm_precomp.h"
 
 #if (RTL8822B_SUPPORT == 1)
-void phydm_dynamic_switch_htstf_mumimo_8822b(struct dm_struct *dm)
+static void phydm_dynamic_switch_htstf_mumimo_8822b(struct dm_struct *dm)
 {
 	u8 rssi_l2h = 40, rssi_h2l = 35;
 
@@ -38,7 +38,7 @@ void phydm_dynamic_switch_htstf_mumimo_8822b(struct dm_struct *dm)
 		odm_set_bb_reg(dm, R_0x8d8, BIT(17), 0x0);
 }
 
-void phydm_dynamic_parameters_ota(struct dm_struct *dm)
+static void phydm_dynamic_parameters_ota(struct dm_struct *dm)
 {
 	u8 rssi_l2h = 40, rssi_h2l = 35;
 
@@ -307,7 +307,7 @@ void phydm_1rcca_setting(struct dm_struct *dm, boolean enable_1rcca)
 	}
 }
 
-void phydm_dynamic_select_cck_path_8822b(struct dm_struct *dm)
+static void phydm_dynamic_select_cck_path_8822b(struct dm_struct *dm)
 {
 	struct phydm_fa_struct *fa_cnt = (struct phydm_fa_struct *)phydm_get_structure(dm, PHYDM_FALSEALMCNT);
 	struct drp_rtl8822b_struct *drp_8822b = &dm->phydm_rtl8822b;

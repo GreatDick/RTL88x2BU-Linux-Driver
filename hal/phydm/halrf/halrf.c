@@ -45,7 +45,7 @@ void _iqk_check_if_reload(void *dm_void)
 	iqk_info->is_reload = (boolean)odm_get_bb_reg(dm, R_0x1bf0, BIT(16));
 }
 
-void _iqk_page_switch(void *dm_void)
+static void _iqk_page_switch(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 
@@ -97,7 +97,7 @@ u32 halrf_psd_log2base(u32 val)
 }
 #if (RTL8822B_SUPPORT == 1 || RTL8821C_SUPPORT == 1 ||\
 	RTL8814B_SUPPORT == 1 || RTL8822C_SUPPORT == 1)
-void halrf_iqk_xym_enable(struct dm_struct *dm, u8 xym_enable)
+static void halrf_iqk_xym_enable(struct dm_struct *dm, u8 xym_enable)
 {
 	struct dm_iqk_info *iqk_info = &dm->IQK_info;
 
@@ -194,7 +194,7 @@ void halrf_iqk_xym_read(void *dm_void, u8 path, u8 xym_type)
 }
 
 /*xym_type => 0: rx_sym; 1: tx_xym; 2:gs1_xym; 3:gs2_sym; 4: rxk1_xym*/
-void halrf_iqk_xym_show(struct dm_struct *dm, u8 xym_type)
+static void halrf_iqk_xym_show(struct dm_struct *dm, u8 xym_type)
 {
 	u8 num, path, path_num, i;
 	struct dm_iqk_info *iqk_info = &dm->IQK_info;
@@ -259,7 +259,7 @@ void halrf_iqk_xym_show(struct dm_struct *dm, u8 xym_type)
 	}
 }
 
-void halrf_iqk_xym_dump(void *dm_void)
+static __maybe_unused void halrf_iqk_xym_dump(void *dm_void)
 {
 	u32 tmp1, tmp2;
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
@@ -367,7 +367,7 @@ void halrf_iqk_info_dump(void *dm_void, u32 *_used, char *output, u32 *_out_len)
 	*_out_len = out_len;
 }
 
-void halrf_get_fw_version(void *dm_void)
+static void halrf_get_fw_version(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct _hal_rf_ *rf = &dm->rf_table;
@@ -460,7 +460,7 @@ void halrf_iqk_dbg(void *dm_void)
 #endif
 }
 
-void halrf_lck_dbg(struct dm_struct *dm)
+static void halrf_lck_dbg(struct dm_struct *dm)
 {
 	RF_DBG(dm, DBG_RF_IQK, "%-20s\n", "====== LCK Info ======");
 #if 0
@@ -497,7 +497,7 @@ void phydm_get_iqk_cfir(void *dm_void, u8 idx, u8 path, boolean debug)
 }
 
 
-void halrf_iqk_dbg_cfir_backup(void *dm_void)
+static void halrf_iqk_dbg_cfir_backup(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk_info = &dm->IQK_info;
@@ -525,7 +525,7 @@ void halrf_iqk_dbg_cfir_backup(void *dm_void)
 
 }
 
-void halrf_iqk_dbg_cfir_backup_update(void *dm_void)
+static void halrf_iqk_dbg_cfir_backup_update(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -550,7 +550,7 @@ void halrf_iqk_dbg_cfir_backup_update(void *dm_void)
 	}
 }
 
-void halrf_iqk_dbg_cfir_reload(void *dm_void)
+static void halrf_iqk_dbg_cfir_reload(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -575,7 +575,7 @@ void halrf_iqk_dbg_cfir_reload(void *dm_void)
 	}
 }
 
-void halrf_iqk_dbg_cfir_write(void *dm_void, u8 type, u32 path, u32 idx,
+static void halrf_iqk_dbg_cfir_write(void *dm_void, u8 type, u32 path, u32 idx,
 			      u32 i, u32 data)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
@@ -597,7 +597,7 @@ void halrf_iqk_dbg_cfir_write(void *dm_void, u8 type, u32 path, u32 idx,
 	}
 }
 
-void halrf_iqk_dbg_cfir_backup_show(void *dm_void)
+static void halrf_iqk_dbg_cfir_backup_show(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk_info = &dm->IQK_info;
@@ -1060,7 +1060,7 @@ u64 halrf_cmn_info_get(void *dm_void, u32 cmn_info)
 	return return_value;
 }
 
-void halrf_supportability_init_mp(void *dm_void)
+static void halrf_supportability_init_mp(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct _hal_rf_ *rf = &dm->rf_table;
@@ -1540,7 +1540,7 @@ void halrf_rfk_handshake(void *dm_void, boolean is_before_k)
 	}
 }
 
-void halrf_bbreset(void *dm_void)
+static void halrf_bbreset(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 
@@ -2219,7 +2219,7 @@ void halrf_lck_trigger(void *dm_void)
 	}
 }
 
-void halrf_aac_check(struct dm_struct *dm)
+static void halrf_aac_check(struct dm_struct *dm)
 {
 	switch (dm->support_ic_type) {
 #if (RTL8821C_SUPPORT == 1)
@@ -2260,7 +2260,7 @@ void halrf_rxdck(void *dm_void)
 	}
 }
 
-void halrf_x2k_check(struct dm_struct *dm)
+static void halrf_x2k_check(struct dm_struct *dm)
 {
 
 	switch (dm->support_ic_type) {
@@ -2307,7 +2307,7 @@ void halrf_set_rfsupportability(void *dm_void)
 	}
 }
 
-void halrf_rfe_definition(struct dm_struct *dm)
+static void halrf_rfe_definition(struct dm_struct *dm)
 {
 	struct _hal_rf_ *rf = &dm->rf_table;
 
@@ -3035,7 +3035,7 @@ void halrf_dpk_switch(void *dm_void, u8 enable)
 	}
 }
 
-void _halrf_dpk_info_by_chip(void *dm_void, u32 *_used, char *output, u32 *_out_len)
+static void _halrf_dpk_info_by_chip(void *dm_void, u32 *_used, char *output, u32 *_out_len)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 
@@ -3069,7 +3069,7 @@ void _halrf_dpk_info_by_chip(void *dm_void, u32 *_used, char *output, u32 *_out_
 	*_out_len = out_len;
 }
 
-void _halrf_display_dpk_info(void *dm_void, u32 *_used, char *output, u32 *_out_len)
+static void _halrf_display_dpk_info(void *dm_void, u32 *_used, char *output, u32 *_out_len)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_dpk_info *dpk_info = &dm->dpk_info;
@@ -4044,7 +4044,7 @@ void halrf_xtal_thermal_track(void *dm_void)
 }
 #endif
 
-void _halrf_dump_subpage(void *dm_void, u32 *_used, char *output, u32 *_out_len, u8 page)
+static void _halrf_dump_subpage(void *dm_void, u32 *_used, char *output, u32 *_out_len, u8 page)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 
@@ -4424,4 +4424,3 @@ void halrf_delay_10us(u16 v1)
 	for (i = 0; i < v1; i++)
 		ODM_delay_us(10);
 }
-

@@ -415,6 +415,9 @@ u32 rtw_btcoex_GetDBG(PADAPTER, u8 *pStrBuf, u32 bufSize);
 u8 rtw_btcoex_IncreaseScanDeviceNum(PADAPTER);
 u8 rtw_btcoex_IsBtLinkExist(PADAPTER);
 void rtw_btcoex_pta_off_on_notify(PADAPTER padapter, u8 bBTON);
+void rtw_btcoex_SetBtPatchVersion(PADAPTER padapter, u16 btHciVer, u16 btPatchVer);
+void rtw_btcoex_SetHciVersion(PADAPTER padapter, u16 hciVersion);
+void rtw_btcoex_StackUpdateProfileInfo(void);
 
 #ifdef CONFIG_RF4CE_COEXIST
 void rtw_btcoex_SetRf4ceLinkState(PADAPTER padapter, u8 state);
@@ -422,9 +425,6 @@ u8 rtw_btcoex_GetRf4ceLinkState(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_BT_COEXIST_SOCKET_TRX
-void rtw_btcoex_SetBtPatchVersion(PADAPTER padapter, u16 btHciVer, u16 btPatchVer);
-void rtw_btcoex_SetHciVersion(PADAPTER  padapter, u16 hciVersion);
-void rtw_btcoex_StackUpdateProfileInfo(void);
 void rtw_btcoex_init_socket(_adapter *padapter);
 void rtw_btcoex_close_socket(_adapter *padapter);
 void rtw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name);
@@ -465,4 +465,3 @@ u8 rtw_btcoex_LPS_Leave(PADAPTER padapter);
 
 void rtw_btcoex_set_ant_info(PADAPTER padapter);
 void rtw_btcoex_connect_notify(PADAPTER, u8 join_type);
-

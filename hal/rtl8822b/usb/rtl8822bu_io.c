@@ -15,6 +15,7 @@
 #define _RTL8822BU_IO_C_
 
 #include <drv_types.h>		/* PADAPTER and etc. */
+#include <rtl8822bu_hal.h>
 
 void rtl8822bu_set_intf_ops(struct _io_ops *pops)
 {

@@ -1166,7 +1166,7 @@ static void set_opmode_port1(PADAPTER adapter, u8 mode)
 #endif /* CONFIG_CONCURRENT_MODE */
 }
 #endif /* !CONFIG_MI_WITH_MBSSID_CAM */
-void hw_tsf_reset(_adapter *adapter)
+static __maybe_unused void hw_tsf_reset(_adapter *adapter)
 {
 	u8 hw_port = rtw_hal_get_port(adapter);
 	u32 tsf_rst_addr = 0;
@@ -1182,7 +1182,7 @@ void hw_tsf_reset(_adapter *adapter)
 	tsf_rst_bit = port_cfg[hw_port].tsf_rst_bit;
 	rtw_write8(adapter, tsf_rst_addr, tsf_rst_bit);
 }
-void hw_set_ta(_adapter *adapter, u8 hw_port, u8 *val)
+static __maybe_unused void hw_set_ta(_adapter *adapter, u8 hw_port, u8 *val)
 {
 	u8 idx = 0;
 	u32 reg = port_cfg[hw_port].ta;
@@ -1193,7 +1193,7 @@ void hw_set_ta(_adapter *adapter, u8 hw_port, u8 *val)
 	RTW_INFO("%s("ADPT_FMT") hw port -%d TA: "MAC_FMT"\n",
 		__func__, ADPT_ARG(adapter), hw_port, MAC_ARG(val));
 }
-void hw_set_aid(_adapter *adapter, u8 hw_port, u8 aid)
+static __maybe_unused void hw_set_aid(_adapter *adapter, u8 hw_port, u8 aid)
 {
 	rtw_write16(adapter, port_cfg[hw_port].ps_aid, (0xF800 | aid));
 	RTW_INFO("%s("ADPT_FMT") hw port -%d AID: %d\n",
@@ -1663,7 +1663,7 @@ static void hw_var_set_acm_ctrl(PADAPTER adapter, u8 ctrl)
 	rtw_write8(adapter, REG_ACMHWCTRL_8822B, hwctrl);
 }
 
-void hw_var_lps_rfon_chk(_adapter *adapter, u8 rfon_ctrl)
+static void hw_var_lps_rfon_chk(_adapter *adapter, u8 rfon_ctrl)
 {
 #ifdef CONFIG_LPS_ACK
 	struct pwrctrl_priv 	*pwrpriv = adapter_to_pwrctl(adapter);
@@ -2599,7 +2599,8 @@ static u8 hw_var_get_bcn_valid(PADAPTER adapter)
 	return ret;
 }
 
-void rtl8822b_read_wmmedca_reg(PADAPTER adapter, u16 *vo_params, u16 *vi_params, u16 *be_params, u16 *bk_params)
+static void rtl8822b_read_wmmedca_reg(PADAPTER adapter, u16 *vo_params,
+	u16 *vi_params, u16 *be_params, u16 *bk_params)
 {
 	u8 vo_reg_params[4];
 	u8 vi_reg_params[4];
@@ -2925,7 +2926,7 @@ u8 rtl8822b_sethaldefvar(PADAPTER adapter, HAL_DEF_VARIABLE variable, void *pval
 
 	return bResult;
 }
-void rtl8822b_ra_info_dump(_adapter *padapter, void *sel)
+static void rtl8822b_ra_info_dump(_adapter *padapter, void *sel)
 {
 	u8 mac_id;
 	struct sta_info *psta;

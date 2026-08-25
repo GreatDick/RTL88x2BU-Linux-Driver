@@ -889,7 +889,7 @@ static void switch_chnl_and_set_bw_by_fw(PADAPTER adapter, u8 switch_band)
  * Description:
  *	Set channel & bandwidth & offset
  */
-void rtl8822b_switch_chnl_and_set_bw(PADAPTER adapter)
+static void rtl8822b_switch_chnl_and_set_bw(PADAPTER adapter)
 {
 	PHAL_DATA_TYPE hal = GET_HAL_DATA(adapter);
 	struct dm_struct *p_dm_odm = &hal->odmpriv;
@@ -1008,7 +1008,7 @@ void rtl8822b_switch_chnl_and_set_bw(PADAPTER adapter)
  *	CenterFrequencyIndex1	center channel index
  */
 
-void rtl8822b_handle_sw_chnl_and_set_bw(
+static void rtl8822b_handle_sw_chnl_and_set_bw(
 	PADAPTER Adapter, u8 bSwitchChannel, u8 bSetBandWidth,
 	u8 ChannelNum, enum channel_width ChnlWidth, u8 ChnlOffsetOf40MHz,
 	u8 ChnlOffsetOf80MHz, u8 CenterFrequencyIndex1)
@@ -1914,7 +1914,7 @@ static void _reset_beamformee_mu(PADAPTER adapter, struct beamformee_entry *bfee
 	RTW_INFO("%s: Clear MU BFee entry(%d) HW setting\n", __FUNCTION__, idx);
 }
 
-void rtl8822b_phy_bf_reset_all(PADAPTER adapter)
+static __maybe_unused void rtl8822b_phy_bf_reset_all(PADAPTER adapter)
 {
 	struct beamforming_info *info;
 	u8 i, val8;
@@ -2287,4 +2287,3 @@ void rtw_lps_pwr_tracking(_adapter *adapter, u8 thermal_value)
 	rtl8822b_set_fw_thermal_rpt_cmd(adapter, _TRUE, thermal_value);
 }
 #endif
-

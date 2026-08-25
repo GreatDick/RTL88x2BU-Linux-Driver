@@ -19,11 +19,10 @@
 #include "../os_dep/linux/custom_multiap_intfs/custom_multiap_intfs.h"
 #endif
 
-extern void indicate_wx_scan_complete_event(_adapter *padapter);
 extern u8 rtw_do_join(_adapter *padapter);
 
 
-void rtw_init_mlme_timer(_adapter *padapter)
+static void rtw_init_mlme_timer(_adapter *padapter)
 {
 	struct	mlme_priv *pmlmepriv = &padapter->mlmepriv;
 
@@ -40,7 +39,7 @@ void rtw_init_mlme_timer(_adapter *padapter)
 #endif
 }
 
-sint	_rtw_init_mlme_priv(_adapter *padapter)
+static sint	_rtw_init_mlme_priv(_adapter *padapter)
 {
 	sint	i;
 	u8	*pbuf;
@@ -326,7 +325,7 @@ exit:
 }
 #endif /* defined(CONFIG_WFD) && defined(CONFIG_IOCTL_CFG80211) */
 
-void _rtw_free_mlme_priv(struct mlme_priv *pmlmepriv)
+static void _rtw_free_mlme_priv(struct mlme_priv *pmlmepriv)
 {
 	_adapter *adapter = mlme_to_adapter(pmlmepriv);
 	if (NULL == pmlmepriv) {
@@ -354,7 +353,7 @@ exit:
 	return;
 }
 
-sint	_rtw_enqueue_network(_queue *queue, struct wlan_network *pnetwork)
+static sint	_rtw_enqueue_network(_queue *queue, struct wlan_network *pnetwork)
 {
 	_irqL irqL;
 
@@ -2414,7 +2413,7 @@ static void free_scanqueue(struct	mlme_priv *pmlmepriv)
 
 }
 
-void rtw_reset_rx_info(_adapter *adapter)
+static void rtw_reset_rx_info(_adapter *adapter)
 {
 	struct recv_priv  *precvpriv = &adapter->recvpriv;
 
@@ -3968,7 +3967,6 @@ if (!adapter_use_wds(adapter)) {
 #endif /* (LINUX_VERSION_CODE <= KERNEL_VERSION(2, 6, 35)) */
 		&& (check_fwstate(pmlmepriv, WIFI_STATION_STATE | WIFI_ADHOC_STATE) == _TRUE)) {
 		/* expire NAT2.5 entry */
-		void nat25_db_expire(_adapter *priv);
 		nat25_db_expire(adapter);
 
 		if (adapter->pppoe_connection_in_progress > 0)
@@ -5984,4 +5982,3 @@ void dump_arp_pkt(void *sel, u8 *da, u8 *sa, u8 *arp, bool tx)
 	RTW_PRINT_SEL(sel, "tha="MAC_FMT", tpa="IP_FMT"\n"
 		, MAC_ARG(ARP_TARGET_MAC_ADDR(arp)), IP_ARG(ARP_TARGET_IP_ADDR(arp)));
 }
-

@@ -16,6 +16,7 @@
 
 #include <drv_types.h>			/* PADAPTER, rtw_xmit.h and etc. */
 #include <hal_data.h>			/* HAL_DATA_TYPE */
+#include "rtl8822bu.h"
 #include "../../hal_halmac.h"		/* RX desc */
 #include "../rtl8822b.h"		/* rtl8822b_query_rx_desc, rtl8822b_c2h_handler_no_io() */
 

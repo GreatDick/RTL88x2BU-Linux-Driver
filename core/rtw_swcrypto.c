@@ -14,6 +14,7 @@
  *****************************************************************************/
 #include <drv_types.h>
 #include <hal_data.h>
+#include <rtw_swcrypto.h>
 #include <aes.h>
 #include <aes_siv.h>
 #include <aes_wrap.h>

@@ -38,7 +38,7 @@
 
 /*@---------------------------Define Local Constant---------------------------*/
 
-void phydm_get_read_counter_8822b(struct dm_struct *dm)
+static void phydm_get_read_counter_8822b(struct dm_struct *dm)
 {
 	u32 counter = 0x0, rf_reg;
 
@@ -80,7 +80,7 @@ void do_iqk_8822b(void *dm_void, u8 delta_thermal_index, u8 thermal_value,
 }
 #endif
 
-u32 _iqk_ltec_read_8822b(struct dm_struct *dm, u16 reg_addr)
+static u32 _iqk_ltec_read_8822b(struct dm_struct *dm, u16 reg_addr)
 {
 	u32 j = 0;
 
@@ -94,7 +94,7 @@ u32 _iqk_ltec_read_8822b(struct dm_struct *dm, u16 reg_addr)
 	return odm_read_4byte(dm, 0x1708); /*get read data*/
 }
 
-void _iqk_ltec_write_8822b(struct dm_struct *dm, u16 reg_addr, u32 bit_mask,
+static void _iqk_ltec_write_8822b(struct dm_struct *dm, u16 reg_addr, u32 bit_mask,
 			     u32 reg_value)
 {
 	u32 val, i = 0, j = 0, bitpos = 0;
@@ -133,7 +133,7 @@ void _iqk_ltec_write_8822b(struct dm_struct *dm, u16 reg_addr, u32 bit_mask,
 	}
 }
 
-void _iqk_rf_set_check_8822b(struct dm_struct *dm, u8 path, u16 add, u32 data)
+static void _iqk_rf_set_check_8822b(struct dm_struct *dm, u8 path, u16 add, u32 data)
 {
 	u32 i;
 
@@ -149,14 +149,14 @@ void _iqk_rf_set_check_8822b(struct dm_struct *dm, u8 path, u16 add, u32 data)
 	}
 }
 
-void _iqk_rf0xb0_workaround_8822b(struct dm_struct *dm)
+static void _iqk_rf0xb0_workaround_8822b(struct dm_struct *dm)
 {
 	/*add 0xb8 control for the bad phase noise after switching channel*/
 	odm_set_rf_reg(dm, (enum rf_path)0x0, RF_0xb8, MASK20BITS, 0x00a00);
 	odm_set_rf_reg(dm, (enum rf_path)0x0, RF_0xb8, MASK20BITS, 0x80a00);
 }
 
-void _iqk_0xc94_workaround_8822b(struct dm_struct *dm)
+static void _iqk_0xc94_workaround_8822b(struct dm_struct *dm)
 {
 	if (odm_get_bb_reg(dm, R_0xc94, BIT(0)) == 0x1) {
 		odm_set_bb_reg(dm, R_0xc94, BIT(0), 0x0);
@@ -169,7 +169,7 @@ void _iqk_0xc94_workaround_8822b(struct dm_struct *dm)
 	}
 }
 
-void _iqk_fill_iqk_report_8822b(void *dm_void, u8 ch)
+static void _iqk_fill_iqk_report_8822b(void *dm_void, u8 ch)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -188,7 +188,7 @@ void _iqk_fill_iqk_report_8822b(void *dm_void, u8 ch)
 	odm_write_4byte(dm, 0x1be8, data);
 }
 
-void _iqk_fail_count_8822b(void *dm_void)
+static void _iqk_fail_count_8822b(void *dm_void)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -210,7 +210,7 @@ void _iqk_fail_count_8822b(void *dm_void)
 	       dm->n_iqk_fail_cnt);
 }
 
-void _iqk_iqk_fail_report_8822b(struct dm_struct *dm)
+static __maybe_unused void _iqk_iqk_fail_report_8822b(struct dm_struct *dm)
 {
 	u32 tmp1bf0 = 0x0;
 	u8 i;
@@ -235,7 +235,7 @@ void _iqk_iqk_fail_report_8822b(struct dm_struct *dm)
 	}
 }
 
-void _iqk_backup_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
+static void _iqk_backup_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
 			      u32 *BB_backup, u32 *backup_mac_reg,
 			      u32 *backup_bb_reg)
 {
@@ -251,7 +251,7 @@ void _iqk_backup_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
 #endif
 }
 
-void _iqk_backup_rf_8822b(struct dm_struct *dm, u32 RF_backup[][2],
+static void _iqk_backup_rf_8822b(struct dm_struct *dm, u32 RF_backup[][2],
 			  u32 *bkup_reg)
 {
 	u32 i;
@@ -267,7 +267,7 @@ void _iqk_backup_rf_8822b(struct dm_struct *dm, u32 RF_backup[][2],
 #endif
 }
 
-void _iqk_agc_bnd_int_8822b(struct dm_struct *dm)
+static void _iqk_agc_bnd_int_8822b(struct dm_struct *dm)
 {
 	/*initialize RX AGC bnd, it must do after bbreset*/
 	odm_write_4byte(dm, 0x1b00, 0xf8000008);
@@ -279,7 +279,7 @@ void _iqk_agc_bnd_int_8822b(struct dm_struct *dm)
 #endif
 }
 
-void _iqk_bb_reset_8822b(struct dm_struct *dm)
+static void _iqk_bb_reset_8822b(struct dm_struct *dm)
 {
 	boolean cca_ing = false;
 	u32 count = 0;
@@ -321,7 +321,7 @@ void _iqk_bb_reset_8822b(struct dm_struct *dm)
 	}
 }
 
-void _iqk_afe_setting_8822b(struct dm_struct *dm, boolean do_iqk)
+static void _iqk_afe_setting_8822b(struct dm_struct *dm, boolean do_iqk)
 {
 	if (do_iqk) {
 		odm_write_4byte(dm, 0xc60, 0x50000000);
@@ -351,7 +351,7 @@ void _iqk_afe_setting_8822b(struct dm_struct *dm, boolean do_iqk)
 	odm_set_bb_reg(dm, R_0x9a4, BIT(31), 0x0);
 }
 
-void _iqk_restore_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
+static void _iqk_restore_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
 			       u32 *BB_backup, u32 *backup_mac_reg,
 			       u32 *backup_bb_reg)
 {
@@ -366,7 +366,7 @@ void _iqk_restore_mac_bb_8822b(struct dm_struct *dm, u32 *MAC_backup,
 #endif
 }
 
-void _iqk_restore_rf_8822b(struct dm_struct *dm, u32 *backup_rf_reg,
+static void _iqk_restore_rf_8822b(struct dm_struct *dm, u32 *backup_rf_reg,
 			   u32 RF_backup[][2])
 {
 	u32 i;
@@ -395,7 +395,7 @@ void _iqk_restore_rf_8822b(struct dm_struct *dm, u32 *backup_rf_reg,
 #endif
 }
 
-void _iqk_backup_iqk_8822b_subfunction(struct dm_struct *dm)
+static void _iqk_backup_iqk_8822b_subfunction(struct dm_struct *dm)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
 	u8 i, j, k;
@@ -419,7 +419,7 @@ void _iqk_backup_iqk_8822b_subfunction(struct dm_struct *dm)
 	}
 }
 
-void _iqk_backup_iqk_8822b(struct dm_struct *dm, u8 step, u8 path)
+static void _iqk_backup_iqk_8822b(struct dm_struct *dm, u8 step, u8 path)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
 	u8 i, j;
@@ -452,7 +452,7 @@ void _iqk_backup_iqk_8822b(struct dm_struct *dm, u8 step, u8 path)
 	}
 }
 
-void _iqk_reload_iqk_setting_8822b(struct dm_struct *dm, u8 ch,
+static void _iqk_reload_iqk_setting_8822b(struct dm_struct *dm, u8 ch,
 				   u8 reload_idx
 				   /*1: reload TX, 2: reload LO, TX, RX*/)
 {
@@ -514,7 +514,7 @@ void _iqk_reload_iqk_setting_8822b(struct dm_struct *dm, u8 ch,
 	}
 }
 
-boolean
+static boolean
 _iqk_reload_iqk_8822b(struct dm_struct *dm, boolean reset)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -544,7 +544,7 @@ _iqk_reload_iqk_8822b(struct dm_struct *dm, boolean reset)
 	return iqk->is_reload;
 }
 
-void _iqk_rfe_setting_8822b(struct dm_struct *dm, boolean ext_pa_on)
+static void _iqk_rfe_setting_8822b(struct dm_struct *dm, boolean ext_pa_on)
 {
 	if (ext_pa_on) {
 		/*RFE setting*/
@@ -573,7 +573,7 @@ void _iqk_rfe_setting_8822b(struct dm_struct *dm, boolean ext_pa_on)
 	}
 }
 
-void _iqk_rf_setting_8822b(struct dm_struct *dm)
+static void _iqk_rf_setting_8822b(struct dm_struct *dm)
 {
 	u8 path;
 	u32 tmp;
@@ -621,7 +621,7 @@ void _iqk_rf_setting_8822b(struct dm_struct *dm)
 	}
 }
 
-void _iqk_configure_macbb_8822b(struct dm_struct *dm)
+static void _iqk_configure_macbb_8822b(struct dm_struct *dm)
 {
 	/*MACBB register setting*/
 	odm_write_1byte(dm, 0x522, 0x7f);
@@ -647,7 +647,7 @@ void _iqk_configure_macbb_8822b(struct dm_struct *dm)
 #endif
 }
 
-void _iqk_lok_setting_8822b(struct dm_struct *dm, u8 path)
+static void _iqk_lok_setting_8822b(struct dm_struct *dm, u8 path)
 {
 	odm_write_4byte(dm, 0x1b00, 0xf8000008 | path << 1);
 	odm_write_4byte(dm, 0x1bcc, 0x9);
@@ -683,7 +683,7 @@ void _iqk_lok_setting_8822b(struct dm_struct *dm, u8 path)
 #endif
 }
 
-void _iqk_txk_setting_8822b(struct dm_struct *dm, u8 path)
+static void _iqk_txk_setting_8822b(struct dm_struct *dm, u8 path)
 {
 	odm_write_4byte(dm, 0x1b00, 0xf8000008 | path << 1);
 	odm_write_4byte(dm, 0x1bcc, 0x9);
@@ -716,7 +716,7 @@ void _iqk_txk_setting_8822b(struct dm_struct *dm, u8 path)
 #endif
 }
 
-void _iqk_rxk1_setting_8822b(struct dm_struct *dm, u8 path)
+static void _iqk_rxk1_setting_8822b(struct dm_struct *dm, u8 path)
 {
 	odm_write_4byte(dm, 0x1b00, 0xf8000008 | path << 1);
 
@@ -747,7 +747,7 @@ void _iqk_rxk1_setting_8822b(struct dm_struct *dm, u8 path)
 #endif
 }
 
-void _iqk_rxk2_setting_8822b(struct dm_struct *dm, u8 path, boolean is_gs)
+static void _iqk_rxk2_setting_8822b(struct dm_struct *dm, u8 path, boolean is_gs)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
 
@@ -788,7 +788,7 @@ void _iqk_rxk2_setting_8822b(struct dm_struct *dm, u8 path, boolean is_gs)
 #endif
 }
 
-void halrf_iqk_set_rf0x8(struct dm_struct *dm, u8 path)
+static void halrf_iqk_set_rf0x8(struct dm_struct *dm, u8 path)
 {
 	u16 c = 0x0;
 
@@ -804,14 +804,14 @@ void halrf_iqk_set_rf0x8(struct dm_struct *dm, u8 path)
 	}
 }
 
-void halrf_iqk_check_if_reload(struct dm_struct *dm)
+static void halrf_iqk_check_if_reload(struct dm_struct *dm)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
 
 	iqk->is_reload = (boolean)odm_get_bb_reg(dm, R_0x1bf0, BIT(16));
 }
 
-boolean
+static boolean
 _iqk_check_cal_8822b(struct dm_struct *dm, u8 path, u8 cmd)
 {
 	boolean notready = true, fail = true;
@@ -842,7 +842,7 @@ _iqk_check_cal_8822b(struct dm_struct *dm, u8 path, u8 cmd)
 	return fail;
 }
 
-boolean
+static boolean
 _iqk_rxk_gsearch_fail_8822b(struct dm_struct *dm, u8 path, u8 step)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -933,7 +933,7 @@ _iqk_rxk_gsearch_fail_8822b(struct dm_struct *dm, u8 path, u8 step)
 	return fail;
 }
 
-boolean
+static boolean
 _lok_one_shot_8822b(void *dm_void, u8 path)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
@@ -971,7 +971,7 @@ _lok_one_shot_8822b(void *dm_void, u8 path)
 	return LOK_notready;
 }
 
-boolean
+static boolean
 _iqk_one_shot_8822b(void *dm_void, u8 path, u8 idx)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
@@ -1077,7 +1077,7 @@ _iqk_one_shot_8822b(void *dm_void, u8 path, u8 idx)
 	return fail;
 }
 
-boolean
+static boolean
 _iqk_rx_iqk_by_path_8822b(void *dm_void, u8 path)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
@@ -1167,7 +1167,7 @@ _iqk_rx_iqk_by_path_8822b(void *dm_void, u8 path)
 #endif
 }
 
-void _iqk_iqk_by_path_8822b_subfunction(void *dm_void, u8 rf_path)
+static void _iqk_iqk_by_path_8822b_subfunction(void *dm_void, u8 rf_path)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -1191,7 +1191,7 @@ void _iqk_iqk_by_path_8822b_subfunction(void *dm_void, u8 rf_path)
 	iqk->kcount++;
 }
 
-void _iqk_iqk_by_path_8822b(void *dm_void, boolean segment_iqk)
+static void _iqk_iqk_by_path_8822b(void *dm_void, boolean segment_iqk)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -1314,7 +1314,7 @@ void _iqk_iqk_by_path_8822b(void *dm_void, boolean segment_iqk)
 	}
 }
 
-void _iqk_start_iqk_8822b(struct dm_struct *dm, boolean segment_iqk)
+static void _iqk_start_iqk_8822b(struct dm_struct *dm, boolean segment_iqk)
 {
 	u32 tmp;
 
@@ -1377,7 +1377,7 @@ void _iq_calibrate_8822b_init(struct dm_struct *dm)
 	odm_write_4byte(dm, 0x1b10, 0x88011c00);
 }
 
-boolean
+static boolean
 _iqk_rximr_rxk1_test_8822b(struct dm_struct *dm, u8 path, u32 tone_index)
 {
 	boolean fail = true;
@@ -1398,7 +1398,7 @@ _iqk_rximr_rxk1_test_8822b(struct dm_struct *dm, u8 path, u32 tone_index)
 	return fail;
 }
 
-u32 _iqk_tximr_selfcheck_8822b(void *dm_void, u8 tone_index, u8 path)
+static u32 _iqk_tximr_selfcheck_8822b(void *dm_void, u8 tone_index, u8 path)
 {
 	u32 tx_ini_power_H[2], tx_ini_power_L[2];
 	u32 tmp1, tmp2, tmp3, tmp4, tmp5;
@@ -1458,7 +1458,7 @@ u32 _iqk_tximr_selfcheck_8822b(void *dm_void, u8 tone_index, u8 path)
 	return tximr;
 }
 
-void _iqk_start_tximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
+static __maybe_unused void _iqk_start_tximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
 {
 	boolean KFAIL;
 	u8 path, i, tone_index;
@@ -1479,7 +1479,7 @@ void _iqk_start_tximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
 	}
 }
 
-u32 _iqk_rximr_selfcheck_8822b(void *dm_void, u32 tone_index, u8 path,
+static u32 _iqk_rximr_selfcheck_8822b(void *dm_void, u32 tone_index, u8 path,
 			       u32 tmp1b38)
 {
 	/*[0]: psd tone; [1]: image tone*/
@@ -1596,7 +1596,7 @@ u32 _iqk_rximr_selfcheck_8822b(void *dm_void, u32 tone_index, u8 path,
 	return rximr;
 }
 
-boolean _iqk_get_rxk1_8822b(struct dm_struct *dm, u8 path, u8 imr_limit,
+static boolean _iqk_get_rxk1_8822b(struct dm_struct *dm, u8 path, u8 imr_limit,
 			    u8 side, u32 temp[][15])
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -1653,7 +1653,7 @@ boolean _iqk_get_rxk1_8822b(struct dm_struct *dm, u8 path, u8 imr_limit,
 	return kfail;
 }
 
-void _iqk_get_rxk2_8822b(struct dm_struct *dm, u8 path, u8 imr_limit, u8 side,
+static void _iqk_get_rxk2_8822b(struct dm_struct *dm, u8 path, u8 imr_limit, u8 side,
 			 u32 temp[][15])
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -1687,7 +1687,7 @@ void _iqk_get_rxk2_8822b(struct dm_struct *dm, u8 path, u8 imr_limit, u8 side,
 	}
 }
 
-void _iqk_rximr_test_8822b(struct dm_struct *dm, u8 path, u8 imr_limit)
+static void _iqk_rximr_test_8822b(struct dm_struct *dm, u8 path, u8 imr_limit)
 {
 	struct dm_iqk_info *iqk = &dm->IQK_info;
 	boolean kfail;
@@ -1762,7 +1762,7 @@ void _iqk_rximr_test_8822b(struct dm_struct *dm, u8 path, u8 imr_limit)
 	}
 }
 
-void _iqk_start_rximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
+static void _iqk_start_rximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
 {
 	u8 path;
 
@@ -1770,7 +1770,7 @@ void _iqk_start_rximr_test_8822b(struct dm_struct *dm, u8 imr_limit)
 		_iqk_rximr_test_8822b(dm, path, imr_limit);
 }
 
-void _iqk_start_imr_test_8822b(void *dm_void)
+static void _iqk_start_imr_test_8822b(void *dm_void)
 {
 	u8 imr_limit;
 
@@ -1788,7 +1788,7 @@ void _iqk_start_imr_test_8822b(void *dm_void)
 	_iqk_start_rximr_test_8822b(dm, imr_limit);
 }
 
-void _phy_iq_calibrate_8822b(struct dm_struct *dm, boolean reset,
+static void _phy_iq_calibrate_8822b(struct dm_struct *dm, boolean reset,
 			     boolean segment_iqk)
 {
 	u32 MAC_backup[MAC_REG_NUM_8822B], BB_backup[BB_REG_NUM_8822B];
@@ -1870,7 +1870,7 @@ void _phy_iq_calibrate_8822b(struct dm_struct *dm, boolean reset,
 	RF_DBG(dm, DBG_RF_IQK, "[IQK]==========IQK end!!!!!==========\n");
 }
 
-void _phy_iq_calibrate_by_fw_8822b(void *dm_void, u8 clear, u8 segment_iqk)
+static void _phy_iq_calibrate_by_fw_8822b(void *dm_void, u8 clear, u8 segment_iqk)
 {
 	struct dm_struct *dm = (struct dm_struct *)dm_void;
 	struct dm_iqk_info *iqk = &dm->IQK_info;
@@ -1919,7 +1919,7 @@ void phy_iq_calibrate_8822b(void *dm_void, boolean clear, boolean segment_iqk)
 	halrf_iqk_dbg(dm);
 }
 
-void _phy_imr_measure_8822b(struct dm_struct *dm)
+static void _phy_imr_measure_8822b(struct dm_struct *dm)
 {
 	u32 MAC_backup[MAC_REG_NUM_8822B], BB_backup[BB_REG_NUM_8822B];
 	u32 RF_backup[RF_REG_NUM_8822B][SS_8822B];

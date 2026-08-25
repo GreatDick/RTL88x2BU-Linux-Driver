@@ -109,7 +109,7 @@ inline u8 *rtw_set_ie_mpm(u8 *buf, u32 *buf_len
 	return rtw_set_ie(buf, WLAN_EID_MPM, pos - data, data, buf_len);
 }
 
-bool rtw_bss_is_forwarding(WLAN_BSSID_EX *bss)
+static bool rtw_bss_is_forwarding(WLAN_BSSID_EX *bss)
 {
 	u8 *ie;
 	int ie_len;
@@ -126,7 +126,7 @@ exit:
 	return ret;
 }
 
-bool rtw_bss_is_cto_mgate(WLAN_BSSID_EX *bss)
+static bool rtw_bss_is_cto_mgate(WLAN_BSSID_EX *bss)
 {
 	u8 *ie;
 	int ie_len;
@@ -143,7 +143,8 @@ exit:
 	return ret;
 }
 
-int _rtw_bss_is_same_mbss(WLAN_BSSID_EX *a, WLAN_BSSID_EX *b, u8 **a_mconf_ie_r, u8 **b_mconf_ie_r)
+static int _rtw_bss_is_same_mbss(WLAN_BSSID_EX *a, WLAN_BSSID_EX *b,
+				 u8 **a_mconf_ie_r, u8 **b_mconf_ie_r)
 {
 	int ret = 0;
 	u8 *a_mconf_ie, *b_mconf_ie;
@@ -270,7 +271,8 @@ exit:
 	return ret;
 }
 
-void rtw_mesh_bss_peering_status(WLAN_BSSID_EX *bss, u8 *nop, u8 *accept)
+static void rtw_mesh_bss_peering_status(WLAN_BSSID_EX *bss, u8 *nop,
+					u8 *accept)
 {
 	u8 *ie;
 	int ie_len;
@@ -435,7 +437,8 @@ exit:
 	return updated;
 }
 
-struct sta_info *_rtw_mesh_acnode_prevent_pick_sacrifice(_adapter *adapter)
+static struct sta_info *
+_rtw_mesh_acnode_prevent_pick_sacrifice(_adapter *adapter)
 {
 	struct sta_priv *stapriv = &adapter->stapriv;
 	_list *head, *list;
@@ -2609,7 +2612,8 @@ exit:
 	return ret;
 }
 
-int rtw_mesh_set_plink_state(_adapter *adapter, const u8 *mac, u8 plink_state)
+static int rtw_mesh_set_plink_state(_adapter *adapter, const u8 *mac,
+				    u8 plink_state)
 {
 	struct rtw_mesh_info *minfo = &adapter->mesh_info;
 	struct mesh_plink_pool *plink_ctl = &minfo->plink_ctl;
@@ -2770,7 +2774,8 @@ exit:
 	return res;
 }
 
-void rtw_mesh_expire_peer_notify(_adapter *adapter, const u8 *peer_addr)
+static void rtw_mesh_expire_peer_notify(_adapter *adapter,
+					const u8 *peer_addr)
 {
 	u8 null_ssid[2] = {0, 0};
 
@@ -3029,7 +3034,7 @@ static void rtw_mpath_tx_queue_flush(_adapter *adapter)
 typedef struct kmem_cache rtw_mcache;
 #endif
 
-rtw_mcache *rtw_mcache_create(const char *name, size_t size)
+static rtw_mcache *rtw_mcache_create(const char *name, size_t size)
 {
 #ifdef PLATFORM_LINUX /* 3.10 ~ 4.13 checked */
 	return kmem_cache_create(name, size, 0, 0, NULL);
@@ -3038,7 +3043,7 @@ rtw_mcache *rtw_mcache_create(const char *name, size_t size)
 #endif
 }
 
-void rtw_mcache_destroy(rtw_mcache *s)
+static void rtw_mcache_destroy(rtw_mcache *s)
 {
 #ifdef PLATFORM_LINUX /* 3.10 ~ 4.13 checked */
 	kmem_cache_destroy(s);
@@ -3047,7 +3052,7 @@ void rtw_mcache_destroy(rtw_mcache *s)
 #endif
 }
 
-void *_rtw_mcache_alloc(rtw_mcache *cachep)
+static void *_rtw_mcache_alloc(rtw_mcache *cachep)
 {
 #ifdef PLATFORM_LINUX /* 3.10 ~ 4.13 checked */
 	return kmem_cache_alloc(cachep, GFP_ATOMIC);
@@ -3056,7 +3061,7 @@ void *_rtw_mcache_alloc(rtw_mcache *cachep)
 #endif
 }
 
-void _rtw_mcache_free(rtw_mcache *cachep, void *objp)
+static void _rtw_mcache_free(rtw_mcache *cachep, void *objp)
 {
 #ifdef PLATFORM_LINUX /* 3.10 ~ 4.13 checked */
 	kmem_cache_free(cachep, objp);
@@ -3276,7 +3281,7 @@ static int rtw_mesh_decache(_adapter *adapter, const u8 *msa, u32 seq)
 #define RTW_MESH_CTO_MGATE_BLACKLIST_TIMEOUT_MS (20 * 1000)
 #endif
 
-void rtw_mesh_cfg_init_peer_sel_policy(struct rtw_mesh_cfg *mcfg)
+static void rtw_mesh_cfg_init_peer_sel_policy(struct rtw_mesh_cfg *mcfg)
 {
 	struct mesh_peer_sel_policy *sel_policy = &mcfg->peer_sel_policy;
 
@@ -4388,4 +4393,3 @@ void dump_mesh_stats(void *sel, _adapter *adapter)
 	RTW_PRINT_SEL(sel, "mrc_del_qlen:%u\n", stats->mrc_del_qlen);
 }
 #endif /* CONFIG_RTW_MESH */
-

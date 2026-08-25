@@ -61,5 +61,6 @@ s32 rtl8822bu_xmit_buf_handler(PADAPTER);
 /* rtl8822bu_recv.c */
 int rtl8822bu_init_recv_priv(PADAPTER);
 void rtl8822bu_free_recv_priv(PADAPTER);
+int recvbuf2recvframe(PADAPTER padapter, void *ptr);
 
 #endif /* _RTL8822BU_H_ */
