@@ -4151,7 +4151,7 @@ static void phydm_enable_big_jump(void *dm_void, char input[][16], u32 *_used,
 		return;
 
 	for (i = 0; i < 5; i++) {
-		if (input[i + 1]) {
+		if (input[i + 1][0]) {
 			PHYDM_SSCANF(input[i + 1], DCMD_HEX, &dm_value[i]);
 			input_idx++;
 		}
@@ -5794,7 +5794,7 @@ s32 phydm_cmd(struct dm_struct *dm, char *input, u32 in_len, u8 flag,
 {
 	char *token;
 	u32 argc = 0;
-	char argv[MAX_ARGC][MAX_ARGV];
+	char argv[MAX_ARGC][MAX_ARGV] = {{0}};
 
 	do {
 		token = strsep(&input, ", ");

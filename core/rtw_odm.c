@@ -160,6 +160,7 @@ void rtw_odm_acquirespinlock(_adapter *adapter,	enum rt_spinlock_type type)
 	switch (type) {
 	case RT_IQK_SPINLOCK:
 		_enter_critical_bh(&pHalData->IQKSpinLock, &irqL);
+		break;
 	default:
 		break;
 	}
@@ -173,6 +174,7 @@ void rtw_odm_releasespinlock(_adapter *adapter,	enum rt_spinlock_type type)
 	switch (type) {
 	case RT_IQK_SPINLOCK:
 		_exit_critical_bh(&pHalData->IQKSpinLock, &irqL);
+		break;
 	default:
 		break;
 	}
@@ -597,4 +599,3 @@ void odm_lps_pg_debug_8822c(void *dm_void)
 	debug_reload_data_8822c(dm);
 }
 #endif /* defined(CONFIG_RTL8822C) && defined(CONFIG_LPS_PG) */
-

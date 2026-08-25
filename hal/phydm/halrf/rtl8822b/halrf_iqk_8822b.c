@@ -957,7 +957,7 @@ _lok_one_shot_8822b(void *dm_void, u8 path)
 
 	if (!LOK_notready)
 		_iqk_backup_iqk_8822b(dm, 0x1, path);
-	if (DBG_RF_IQK) {
+	if (dm->rf_table.rf_dbg_comp & DBG_RF_IQK) {
 		if (!LOK_notready) {
 			LOK_temp = odm_get_rf_reg(dm, (enum rf_path)path,
 						  RF_0x58, MASK20BITS);
@@ -1028,7 +1028,7 @@ _iqk_one_shot_8822b(void *dm_void, u8 path, u8 idx)
 	fail = _iqk_check_cal_8822b(dm, path, 0x1);
 	_iqk_ltec_write_8822b(dm, 0x38, MASKDWORD, iqk->tmp_gntwl);
 
-	if (dm->debug_components & DBG_RF_IQK) {
+	if (dm->rf_table.rf_dbg_comp & DBG_RF_IQK) {
 		odm_write_4byte(dm, 0x1b00, 0xf8000008 | path << 1);
 		RF_DBG(dm, DBG_RF_IQK,
 		       "[IQK]S%d ==> 0x1b00 = 0x%x, 0x1b08 = 0x%x\n", path,

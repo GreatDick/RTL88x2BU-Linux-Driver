@@ -130,6 +130,12 @@ enum {
 
 #endif
 
+#if defined(__GNUC__) && (__GNUC__ >= 3)
+#define RTW_FLEX_ARRAY
+#else
+#define RTW_FLEX_ARRAY 0
+#endif
+
 #define MEM_ALIGNMENT_OFFSET	(sizeof (SIZE_T))
 #define MEM_ALIGNMENT_PADDING	(sizeof(SIZE_T) - 1)
 

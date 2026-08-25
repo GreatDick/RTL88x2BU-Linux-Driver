@@ -483,7 +483,16 @@ static __inline void thread_enter(char *name)
 	printf("%s", "RTKTHREAD_enter");
 #endif
 }
-void thread_exit(_completion *comp);
+
+#if defined(__noreturn)
+#define RTW_THREAD_NORETURN __noreturn
+#elif defined(ATTRIB_NORET)
+#define RTW_THREAD_NORETURN ATTRIB_NORET
+#else
+#define RTW_THREAD_NORETURN
+#endif
+
+void thread_exit(_completion *comp) RTW_THREAD_NORETURN;
 void _rtw_init_completion(_completion *comp);
 void _rtw_wait_for_comp_timeout(_completion *comp);
 void _rtw_wait_for_comp(_completion *comp);

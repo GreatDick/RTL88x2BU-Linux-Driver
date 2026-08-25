@@ -264,7 +264,7 @@ struct regd_exc_ent {
 	_list list;
 	char country[2];
 	u8 domain;
-	char regd_name[0];
+	char regd_name[RTW_FLEX_ARRAY];
 };
 
 void dump_regd_exc_list(void *sel, struct rf_ctl_t *rfctl);

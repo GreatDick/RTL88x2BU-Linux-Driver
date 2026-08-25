@@ -342,7 +342,7 @@ struct txpwr_lmt_ent {
 		[MAX_TX_COUNT];
 #endif
 
-	char regd_name[0];
+	char regd_name[RTW_FLEX_ARRAY];
 };
 #endif /* CONFIG_TXPWR_LIMIT */
 

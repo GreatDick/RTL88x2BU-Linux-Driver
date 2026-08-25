@@ -296,14 +296,15 @@ void rtw_txpwr_init_regd(struct rf_ctl_t *rfctl)
 			, regd_str(regd)
 			, rfctl->regd_name ? "is used" : "not found"
 		);
-		if (rfctl->regd_name)
-			break;
-		/* fall through */
+		break;
 	default:
+		break;
+	}
+
+	if (!rfctl->regd_name) {
 		rfctl->regd_name = regd_str(TXPWR_LMT_WW);
 		RTW_PRINT("assign %s for default case\n", regd_str(TXPWR_LMT_WW));
-		break;
-	};
+	}
 
 release_lock:
 	_exit_critical_mutex(&rfctl->txpwr_lmt_mutex, &irqL);
@@ -1668,7 +1669,12 @@ void mgt_dispatcher(_adapter *padapter, union recv_frame *precv_frame)
 			ptable->func = &OnAuth;
 		else
 			ptable->func = &OnAuthClient;
-	/* fall through */
+		_mgt_dispatcher(padapter, ptable, precv_frame);
+		#ifdef CONFIG_HOSTAPD_MLME
+		if (MLME_IS_AP(padapter))
+			rtw_hostapd_mlme_rx(padapter, precv_frame);
+		#endif
+		break;
 	case WIFI_ASSOCREQ:
 	case WIFI_REASSOCREQ:
 		_mgt_dispatcher(padapter, ptable, precv_frame);
@@ -2580,13 +2586,11 @@ unsigned int OnAuth(_adapter *padapter, union recv_frame *precv_frame)
 				if (pstat->tbtx_enable)
 					pstapriv->tbtx_asoc_list_cnt--;
 				#endif
-				if (pstat->expire_to > 0)
-					;/* TODO: STA re_auth within expire_to */
+				/* TODO: STA re_auth when expire_to is greater than 0 */
 			}
 			_exit_critical_bh(&pstapriv->asoc_list_lock, &irqL);
 
-			if (seq == 1)
-				; /* TODO: STA re_auth and auth timeout */
+			/* TODO: STA re_auth and auth timeout when seq is 1 */
 
 		}
 	}
